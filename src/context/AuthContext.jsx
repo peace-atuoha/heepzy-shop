@@ -1,5 +1,14 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from 'firebase/auth';
+import { 
+  getAuth, 
+  signInWithPopup, 
+  GoogleAuthProvider, 
+  signOut, 
+  onAuthStateChanged,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail
+} from 'firebase/auth';
 import { auth } from '../firebase'; // Will fail if firebase config isn't added, we handle that
 
 const AuthContext = createContext();
@@ -45,6 +54,45 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const registerWithEmail = async (email, password, name) => {
+    if (isFirebaseConfigured) {
+      // Firebase registration
+      return createUserWithEmailAndPassword(auth, email, password);
+    } else {
+      // Mock registration
+      setCurrentUser({
+        uid: 'mock-123',
+        displayName: name || email.split('@')[0],
+        email: email,
+        photoURL: 'https://i.pravatar.cc/150?img=11'
+      });
+      return Promise.resolve();
+    }
+  };
+
+  const loginWithEmail = async (email, password) => {
+    if (isFirebaseConfigured) {
+      return signInWithEmailAndPassword(auth, email, password);
+    } else {
+      setCurrentUser({
+        uid: 'mock-123',
+        displayName: email.split('@')[0],
+        email: email,
+        photoURL: 'https://i.pravatar.cc/150?img=11'
+      });
+      return Promise.resolve();
+    }
+  };
+
+  const resetPassword = async (email) => {
+    if (isFirebaseConfigured) {
+      return sendPasswordResetEmail(auth, email);
+    } else {
+      console.log(`Mock reset password email sent to ${email}`);
+      return Promise.resolve();
+    }
+  };
+
   const logout = () => {
     if (isFirebaseConfigured) {
       return signOut(auth);
@@ -57,6 +105,9 @@ export const AuthProvider = ({ children }) => {
   const value = {
     currentUser,
     loginWithGoogle,
+    registerWithEmail,
+    loginWithEmail,
+    resetPassword,
     logout,
     isFirebaseConfigured
   };

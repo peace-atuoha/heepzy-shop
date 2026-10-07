@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import { products } from '../data/products';
 import { useNavigate } from 'react-router-dom';
 import CachedImage from './CachedImage';
 
 const FeaturedProduct = () => {
   const { addToCart } = useCart();
+  const { currentUser } = useAuth();
   const navigate = useNavigate();
   // Using a specific product from our realistic data
   const product = products.find(p => p.name === 'Alo X') || products[1];
@@ -14,6 +16,10 @@ const FeaturedProduct = () => {
   const [color, setColor] = useState('White');
 
   const handleAddToCart = () => {
+    if (!currentUser) {
+      alert("Please login first to add items to your cart.");
+      return;
+    }
     addToCart(product, size, color);
     navigate('/checkout');
   };

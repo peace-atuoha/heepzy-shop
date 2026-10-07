@@ -2,23 +2,24 @@ import React from 'react';
 
 const ElevateBanner = () => {
   return (
-    <section className="mt-20">
-      <div className="relative w-full h-[600px] overflow-hidden">
-        <img 
-          src="https://images.unsplash.com/photo-1548344158-b610c3707c2a?auto=format&fit=crop&w=1600&q=80" 
-          alt="Elevate" 
-          className="absolute inset-0 w-full h-full object-cover" 
-        />
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="absolute inset-0 p-12 md:p-24 flex flex-col items-end justify-start text-right">
-          <h2 className="text-8xl md:text-[9rem] font-black uppercase text-white tracking-tighter leading-none mb-4 opacity-90">
-            Elevate
-          </h2>
-          <p className="text-white max-w-md text-sm md:text-base mb-6 leading-relaxed bg-black/30 p-4 rounded-xl backdrop-blur-sm">
+    <section className="my-20 relative w-full h-[500px] overflow-hidden group">
+      <img 
+        src="https://images.unsplash.com/photo-1603808033192-082d6919d3e1?auto=format&fit=crop&w=2000&q=80" 
+        alt="Elevate Collection" 
+        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+      />
+      <div className="absolute inset-0 bg-black/40"></div>
+      
+      <div className="absolute inset-0 flex flex-col justify-center items-end px-4 md:px-20 max-w-7xl mx-auto">
+        <h2 className="text-[6rem] md:text-[10rem] font-black text-white/90 uppercase tracking-tighter leading-none mix-blend-overlay">
+          Elevate
+        </h2>
+        <div className="bg-white/20 backdrop-blur-md p-6 rounded-2xl max-w-sm mt-4 border border-white/30 mr-4">
+          <p className="text-white text-sm font-medium leading-relaxed">
             The Latest Omni 9 Collection Is Here. Bold Looks, Wild Comfort, And Limited Time Offers That Hit Different. Step Up Your Style Game Before It's Gone.
           </p>
-          <p className="text-white/80 font-serif italic text-3xl">Omni 9</p>
         </div>
+        <p className="text-white text-3xl italic font-serif mt-4 mr-4 opacity-80">Omni 9</p>
       </div>
     </section>
   );

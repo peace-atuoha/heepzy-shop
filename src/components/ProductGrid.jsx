@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { products } from '../data/products';
+import { products as localProducts } from '../data/products';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import CachedImage from './CachedImage';
 
 const HoverImage = ({ images }) => {
@@ -30,7 +31,7 @@ const HoverImage = ({ images }) => {
         <CachedImage 
           src={images[currentIndex]} 
           alt="Product" 
-          className="w-full h-full"
+          className="w-full h-full object-cover rounded-2xl"
         />
       </div>
       <div className="absolute top-4 right-4 text-red-500 z-10">
@@ -44,12 +45,55 @@ const HoverImage = ({ images }) => {
 
 const ProductGrid = () => {
   const { addToCart } = useCart();
+  const { currentUser, isFirebaseConfigured } = useAuth();
   const navigate = useNavigate();
+  
+  const [productData, setProductData] = useState(localProducts);
+  const [activeCategory, setActiveCategory] = useState('All');
+  const [showAll, setShowAll] = useState(false);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      if (isFirebaseConfigured) {
+        try {
+          const { collection, getDocs } = await import('firebase/firestore');
+          const { db } = await import('../firebase');
+          const querySnapshot = await getDocs(collection(db, "products"));
+          if (!querySnapshot.empty) {
+            const fetchedProducts = querySnapshot.docs.map(doc => doc.data());
+            setProductData(fetchedProducts);
+          }
+        } catch (error) {
+          console.error("Error fetching products from Firebase, falling back to local:", error);
+        }
+      }
+    };
+    fetchProducts();
+  }, [isFirebaseConfigured]);
+
+  const categories = ['All', 'Fresh Fits', 'Heavy Heat', 'Go Flow', 'Slide Zone', 'Core Edit'];
+
+  // Basic mock filtering based on index for demonstration
+  const filteredProducts = productData.filter((_, idx) => {
+    if (activeCategory === 'All') return true;
+    if (activeCategory === 'Fresh Fits') return idx % 2 === 0;
+    if (activeCategory === 'Heavy Heat') return idx % 3 === 0;
+    if (activeCategory === 'Go Flow') return idx % 4 === 0;
+    if (activeCategory === 'Slide Zone') return idx % 5 === 0;
+    if (activeCategory === 'Core Edit') return idx % 2 !== 0;
+    return true;
+  });
+
+  const displayedProducts = showAll ? filteredProducts : filteredProducts.slice(0, 6);
 
   const handleAddToCart = (e, product) => {
-    e.preventDefault(); // Prevent navigating to product details
+    e.preventDefault(); 
+    if (!currentUser) {
+      alert("Please login first to add items to your cart.");
+      return;
+    }
     addToCart(product, 'US 9', 'Default');
-    navigate('/checkout'); // Direct them to checkout or just show a toast (I'll just add it)
+    navigate('/checkout'); 
   };
 
   return (
@@ -63,8 +107,12 @@ const ProductGrid = () => {
             Level Up Your Daily Look With Shoes That Blend Comfort, Attitude, And Effortless Style.
           </p>
           <div className="flex gap-2 overflow-x-auto pb-2 w-full max-w-lg hide-scrollbar">
-            {['All', 'Fresh Fits', 'Heavy Heat', 'Go Flow', 'Slide Zone', 'Core Edit'].map((cat, i) => (
-              <button key={i} className={`px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap border ${i === 0 ? 'bg-brand-yellow border-brand-yellow text-black' : 'border-gray-200 text-gray-500 hover:border-gray-400'}`}>
+            {categories.map((cat, i) => (
+              <button 
+                key={i} 
+                onClick={() => setActiveCategory(cat)}
+                className={`px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap border transition-colors ${activeCategory === cat ? 'bg-brand-yellow border-brand-yellow text-black' : 'border-gray-200 text-gray-500 hover:border-gray-400'}`}
+              >
                 {cat}
               </button>
             ))}
@@ -72,22 +120,37 @@ const ProductGrid = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {products.map(product => (
-          <Link to={`/product/${product.id}`} key={product.id} className="group cursor-pointer border border-gray-100 rounded-[35px] p-4 hover:shadow-lg transition-shadow block">
-            <HoverImage images={product.images} />
-            <div className="px-2">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="font-semibold text-gray-500 text-sm">{product.name}</h3>
-                <p className="font-bold text-xl text-black">${product.price}</p>
+      {filteredProducts.length === 0 ? (
+        <div className="text-center py-20 text-gray-500">No products found in this category.</div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {displayedProducts.map((product, idx) => (
+            <Link to={`/product/${product.id}`} key={product.id || idx} className="group cursor-pointer border border-gray-100 rounded-[35px] p-4 hover:shadow-lg transition-shadow block">
+              <HoverImage images={product.images} />
+              <div className="px-2">
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="font-semibold text-gray-500 text-sm truncate pr-2">{product.name}</h3>
+                  <p className="font-bold text-xl text-black">${product.price}</p>
+                </div>
+                <button onClick={(e) => handleAddToCart(e, product)} className="w-full py-3 bg-white border border-gray-200 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors rounded-full font-bold text-sm text-black">
+                  Add To Cart
+                </button>
               </div>
-              <button onClick={(e) => handleAddToCart(e, product)} className="w-full py-3 bg-white border border-gray-200 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors rounded-full font-bold text-sm text-black">
-                Add To Cart
-              </button>
-            </div>
-          </Link>
-        ))}
-      </div>
+            </Link>
+          ))}
+        </div>
+      )}
+      
+      {!showAll && filteredProducts.length > 6 && (
+        <div className="mt-12 text-center">
+          <button 
+            onClick={() => setShowAll(true)}
+            className="px-10 py-4 border-2 border-black rounded-full font-black uppercase text-sm hover:bg-black hover:text-white transition-colors"
+          >
+            View All Drops
+          </button>
+        </div>
+      )}
     </section>
   );
 };

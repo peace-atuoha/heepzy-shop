@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import CachedImage from '../components/CachedImage';
-// import { collection, addDoc } from 'firebase/firestore';
-// import { db } from '../firebase'; // Will use mock for now
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../firebase'; 
 
 const Checkout = () => {
-  const { currentUser, loginWithGoogle } = useAuth();
+  const { currentUser, loginWithGoogle, isFirebaseConfigured } = useAuth();
   const { cart, cartTotal, clearCart, removeFromCart } = useCart();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -30,17 +30,42 @@ const Checkout = () => {
     }
     setLoading(true);
 
-    // Mock checkout process with dummy card
-    setTimeout(() => {
-      // Here you would normally:
-      // 1. Process payment via Stripe/Braintree
-      // 2. Save order to Firebase Firestore (addDoc)
-      // 3. Trigger Mailgun function via fetch('/.netlify/functions/send-email')
+    try {
+      // 1. Process payment via Stripe/Braintree (Mocked here)
+      
+      // 2. Save order to Firebase Firestore
+      if (isFirebaseConfigured && currentUser.uid !== 'mock-123') {
+        const ordersRef = collection(db, 'orders');
+        await addDoc(ordersRef, {
+          userId: currentUser.uid,
+          customerEmail: currentUser.email,
+          customerName: formData.name,
+          shippingAddress: `${formData.address}, ${formData.city}`,
+          items: cart.map(item => ({
+             productId: item.productId,
+             name: item.name,
+             size: item.size,
+             color: item.color,
+             price: item.price,
+             quantity: item.quantity
+          })),
+          totalAmount: cartTotal,
+          status: 'Processing',
+          createdAt: serverTimestamp()
+        });
+      }
+
+      // 3. Trigger Mailgun function (Mocked fetch)
+      // fetch('/.netlify/functions/send-email', { ... })
       
       setSuccess(true);
-      clearCart();
+      await clearCart();
+    } catch (error) {
+      console.error("Checkout error:", error);
+      alert("There was an error processing your order.");
+    } finally {
       setLoading(false);
-    }, 2000);
+    }
   };
 
   if (success) {
@@ -94,7 +119,7 @@ const Checkout = () => {
                   <div className="flex-1">
                     <div className="flex justify-between">
                       <p className="font-bold">{item.name}</p>
-                      <button onClick={() => removeFromCart(item.id, item.size, item.color)} className="text-gray-500 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <button onClick={() => removeFromCart(item.id)} className="text-gray-500 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity">
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
                       </button>
                     </div>

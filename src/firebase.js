@@ -3,14 +3,15 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY", // You will need to get this from Firebase Console
+  apiKey: "AIzaSyDhtEspoX7RnIoHhTzD99XbABYuB4LzUZE",
   authDomain: "heepzy.firebaseapp.com",
   projectId: "heepzy",
-  storageBucket: "heepzy.appspot.com",
+  storageBucket: "heepzy.firebasestorage.app",
   messagingSenderId: "403583993426",
-  appId: "YOUR_APP_ID" // You will need to get this from Firebase Console
+  appId: "1:403583993426:web:517f56ea47cc0d8834818b",
+  measurementId: "G-ESFLTENH5R"
 };
 
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);

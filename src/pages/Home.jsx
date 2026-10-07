@@ -8,9 +8,13 @@ import Footer from '../components/Footer';
 import { ArrowDown } from 'lucide-react';
 
 const Home = () => {
+  const handleScroll = () => {
+    document.getElementById('explore').scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <main className="bg-brand-dark min-h-screen pb-20">
-      <section className="px-4 md:px-8 max-w-7xl mx-auto pt-10 pb-10 relative">
+      <section className="px-4 md:px-8 max-w-7xl mx-auto pt-32 pb-10 relative">
         <div className="flex flex-col md:flex-row justify-between items-start mb-6 z-10 relative">
           <div>
             <h1 className="text-[5rem] md:text-[7rem] font-black uppercase tracking-tighter leading-[0.85] mb-2 text-white">
@@ -38,8 +42,8 @@ const Home = () => {
 
         {/* Hero Image */}
         <div className="relative w-full h-[65vh] rounded-[40px] overflow-hidden -mt-32 z-0 border-[8px] border-transparent">
-          <img src="/images/hero.jpg" alt="Hero Shoe" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+          <img src="https://images.unsplash.com/photo-1552346154-21d32810baa3?auto=format&fit=crop&w=2000&q=80" alt="Hero Shoe" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
           
           <div className="absolute bottom-8 left-8 flex items-center gap-3">
             <div className="flex -space-x-3">
@@ -54,7 +58,7 @@ const Home = () => {
           </div>
 
           <div className="absolute bottom-8 right-8 flex flex-col items-center">
-            <button className="w-10 h-10 rounded-full border border-white/50 flex items-center justify-center backdrop-blur-md hover:bg-white/20 transition-colors mb-2 text-white">
+            <button onClick={handleScroll} className="w-10 h-10 rounded-full border border-white/50 flex items-center justify-center backdrop-blur-md hover:bg-white/20 transition-colors mb-2 text-white">
               <ArrowDown size={18} />
             </button>
             <span className="text-[10px] text-gray-300">Scroll To Explore</span>
@@ -62,9 +66,9 @@ const Home = () => {
         </div>
       </section>
       
-      <div className="bg-white rounded-t-[40px] pt-16">
+      <div id="explore" className="bg-white rounded-t-[40px] pt-16">
         {/* Lifestyle Collage Section */}
-        <section className="px-4 md:px-12 max-w-7xl mx-auto mb-20 flex flex-col lg:flex-row gap-12 items-center">
+        <section id="about" className="px-4 md:px-12 max-w-7xl mx-auto mb-20 flex flex-col lg:flex-row gap-12 items-center">
           <div className="lg:w-1/3">
             <h2 className="text-5xl font-black leading-tight text-black mb-4">
               Not Just Shoes<br/>A Lifestyle
@@ -78,20 +82,22 @@ const Home = () => {
           </div>
           <div className="lg:w-2/3 grid grid-cols-3 gap-4 h-[400px]">
             <div className="flex flex-col gap-4 h-full">
-              <img src="https://images.unsplash.com/photo-1514989940723-e8e51635b782?auto=format&fit=crop&w=400&q=80" className="w-full h-1/2 object-cover rounded-3xl" />
-              <img src="https://images.unsplash.com/photo-1520639887900-84620021c32f?auto=format&fit=crop&w=400&q=80" className="w-full h-1/2 object-cover rounded-3xl" />
+              <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=400&q=80" className="w-full h-1/2 object-cover rounded-3xl" />
+              <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=400&q=80" className="w-full h-1/2 object-cover rounded-3xl" />
             </div>
             <div className="h-full">
-               <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=400&q=80" className="w-full h-full object-cover rounded-3xl" />
+               <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=400&q=80" className="w-full h-full object-cover rounded-3xl" />
             </div>
             <div className="flex flex-col gap-4 h-full">
-              <img src="https://images.unsplash.com/photo-1485230405346-71acb9518d9c?auto=format&fit=crop&w=400&q=80" className="w-full h-1/2 object-cover rounded-3xl" />
-              <img src="https://images.unsplash.com/photo-1512374382149-233c42b6a83b?auto=format&fit=crop&w=400&q=80" className="w-full h-1/2 object-cover rounded-3xl" />
+              <img src="https://images.unsplash.com/photo-1514989940723-e8e51635b782?auto=format&fit=crop&w=400&q=80" className="w-full h-1/2 object-cover rounded-3xl" />
+              <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=400&q=80" className="w-full h-1/2 object-cover rounded-3xl" />
             </div>
           </div>
         </section>
 
-        <ProductGrid />
+        <div id="drops">
+          <ProductGrid />
+        </div>
         <FeaturedProduct />
         <Testimonials />
         <ElevateBanner />
