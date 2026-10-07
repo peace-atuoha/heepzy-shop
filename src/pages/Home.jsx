@@ -14,54 +14,58 @@ const Home = () => {
 
   return (
     <main className="bg-brand-dark min-h-screen pb-20">
-      <section className="px-4 md:px-8 max-w-7xl mx-auto pt-32 pb-10 relative">
-        <div className="flex flex-col md:flex-row justify-between items-start mb-6 z-10 relative">
-          <div>
-            <h1 className="text-[5rem] md:text-[7rem] font-black uppercase tracking-tighter leading-[0.85] mb-2 text-white">
+      <section className="px-4 md:px-8 max-w-7xl mx-auto pt-24 md:pt-32 pb-10 relative">
+        <div className="flex flex-col lg:flex-row justify-between items-start mb-8 z-10 relative">
+          <div className="animate-fade-in-right opacity-0" style={{ animationDelay: '0.1s' }}>
+            <h1 className="text-[4rem] md:text-[6rem] lg:text-[7rem] font-black uppercase tracking-tighter leading-[0.85] text-white drop-shadow-2xl">
               REIMAGINED<br/>
-              <span className="text-brand-yellow">COMFORT</span>
+              <span className="text-brand-yellow drop-shadow-[0_0_30px_rgba(229,241,33,0.3)]">COMFORT</span>
             </h1>
-            <p className="mt-8 text-gray-300 max-w-[200px] font-medium leading-tight">Comfort Evolved.<br/>Style Perfected.</p>
+            <p className="mt-6 text-gray-300 max-w-[250px] font-medium leading-relaxed drop-shadow-lg">
+              Comfort Evolved.<br/>Style Perfected.
+            </p>
           </div>
-          <div className="mt-10 md:mt-0 text-right flex flex-col items-end">
-            <p className="text-gray-300 max-w-[250px] mb-6 text-sm">
+          
+          <div className="mt-8 lg:mt-0 flex flex-col items-start lg:items-end w-full lg:w-auto animate-fade-in-up opacity-0" style={{ animationDelay: '0.3s' }}>
+            <p className="text-gray-300 max-w-[250px] mb-6 text-sm text-left lg:text-right drop-shadow-md">
               Built For Every Mood, Every Outfit, And Every Move Lace Up And Show Vibe.
             </p>
-            <div className="flex gap-2 justify-end bg-white/10 p-1 rounded-full backdrop-blur-sm">
-              <button className="px-6 py-2 bg-white text-black rounded-full font-bold text-sm">Comfort</button>
-              <button className="px-6 py-2 bg-brand-yellow text-black rounded-full font-bold text-sm">Style</button>
-              <button className="px-6 py-2 bg-white text-black rounded-full font-bold text-sm">Trendy</button>
-            </div>
-            
-            <div className="mt-40 text-right hidden md:block">
-              <h3 className="text-3xl font-bold mb-1 text-white">Flash Drop 25%</h3>
-              <p className="text-gray-400 text-sm">Our All New Arrival</p>
+            <div className="flex gap-2 bg-white/10 p-1 rounded-full backdrop-blur-sm self-start lg:self-end shadow-xl">
+              <button className="px-6 py-2 bg-white text-black rounded-full font-bold text-sm hover:scale-105 transition-transform">Comfort</button>
+              <button className="px-6 py-2 bg-brand-yellow text-black rounded-full font-bold text-sm hover:scale-105 transition-transform shadow-[0_0_20px_rgba(229,241,33,0.4)]">Style</button>
+              <button className="px-6 py-2 bg-white text-black rounded-full font-bold text-sm hover:scale-105 transition-transform">Trendy</button>
             </div>
           </div>
         </div>
 
         {/* Hero Image */}
-        <div className="relative w-full h-[65vh] rounded-[40px] overflow-hidden -mt-32 z-0 border-[8px] border-transparent">
-          <img src="/images/hero.png" alt="Hero Shoe" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+        <div className="relative w-full h-[80vh] md:h-[85vh] rounded-[40px] overflow-hidden z-0 mt-8 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] border border-white/5 animate-scale-in opacity-0" style={{ animationDelay: '0.4s' }}>
+          <img src="/images/hero.png" alt="Hero Shoe" className="w-full h-full object-cover transition-transform duration-[10s] hover:scale-110 ease-out" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/10"></div>
           
-          <div className="absolute bottom-8 left-8 flex items-center gap-3">
-            <div className="flex -space-x-3">
-              <img src="https://i.pravatar.cc/100?img=11" className="w-10 h-10 rounded-full border-2 border-brand-dark z-30 object-cover" />
-              <img src="https://i.pravatar.cc/100?img=12" className="w-10 h-10 rounded-full border-2 border-brand-dark z-20 object-cover" />
-              <img src="https://i.pravatar.cc/100?img=13" className="w-10 h-10 rounded-full border-2 border-brand-dark z-10 object-cover" />
+          {/* Floating Flash Drop Text */}
+          <div className="absolute top-8 right-8 text-right hidden md:block animate-float">
+            <h3 className="text-4xl font-black mb-1 text-white uppercase tracking-tighter drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]">Flash Drop <span className="text-brand-yellow">25%</span></h3>
+            <p className="text-gray-200 font-bold tracking-widest text-sm uppercase drop-shadow-md">Our All New Arrival</p>
+          </div>
+          
+          <div className="absolute bottom-8 left-8 flex flex-col md:flex-row items-start md:items-center gap-4 animate-fade-in-up opacity-0" style={{ animationDelay: '0.8s' }}>
+            <div className="flex -space-x-3 drop-shadow-xl">
+              <img src="https://i.pravatar.cc/100?img=11" className="w-12 h-12 rounded-full border-2 border-brand-dark z-30 object-cover" />
+              <img src="https://i.pravatar.cc/100?img=12" className="w-12 h-12 rounded-full border-2 border-brand-dark z-20 object-cover" />
+              <img src="https://i.pravatar.cc/100?img=13" className="w-12 h-12 rounded-full border-2 border-brand-dark z-10 object-cover" />
             </div>
-            <div>
-              <p className="font-bold text-sm text-white">4.8/5 From 12,000+</p>
-              <p className="text-gray-400 text-xs">Customers</p>
+            <div className="drop-shadow-lg">
+              <p className="font-bold text-base text-white">4.8/5 From 12,000+</p>
+              <p className="text-brand-yellow text-sm font-bold uppercase tracking-widest">Verified Customers</p>
             </div>
           </div>
 
-          <div className="absolute bottom-8 right-8 flex flex-col items-center">
-            <button onClick={handleScroll} className="w-10 h-10 rounded-full border border-white/50 flex items-center justify-center backdrop-blur-md hover:bg-white/20 transition-colors mb-2 text-white">
-              <ArrowDown size={18} />
+          <div className="absolute bottom-8 right-8 flex flex-col items-center animate-fade-in-up opacity-0" style={{ animationDelay: '1s' }}>
+            <button onClick={handleScroll} className="w-12 h-12 rounded-full border border-white/50 flex items-center justify-center backdrop-blur-md hover:bg-brand-yellow hover:text-black hover:border-brand-yellow transition-all mb-2 text-white shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:shadow-[0_0_40px_rgba(229,241,33,0.5)] animate-bounce-soft group">
+              <ArrowDown size={20} className="transition-transform group-hover:translate-y-1" />
             </button>
-            <span className="text-[10px] text-gray-300">Scroll To Explore</span>
+            <span className="text-xs font-bold uppercase tracking-widest text-gray-300 drop-shadow-md">Scroll To Explore</span>
           </div>
         </div>
       </section>

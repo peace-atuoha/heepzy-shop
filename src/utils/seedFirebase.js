@@ -1,19 +1,35 @@
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, writeBatch, doc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { products } from '../data/products';
 
 export const seedFirebaseProducts = async () => {
   if (!db) {
-    alert("Firebase is not configured yet. Please configure src/firebase.js first.");
-    return;
+    console.error("Firebase is not configured yet. Please configure src/firebase.js first.");
+    return false;
   }
 
   try {
     const productsCollection = collection(db, 'products');
     
-    // We loop through the local products and push them to Firestore
+    // First, check if products already exist to prevent duplicate seeding
+    const snapshot = await getDocs(productsCollection);
+    if (!snapshot.empty) {
+      console.log("Products already exist in Firebase. Clearing old products...");
+      // Optional: Clear old products before seeding new ones
+      const batch = writeBatch(db);
+      snapshot.docs.forEach((document) => {
+        batch.delete(doc(db, 'products', document.id));
+      });
+      await batch.commit();
+    }
+    
+    // Seed new products using a batch for performance
+    const newBatch = writeBatch(db);
+    
     for (const product of products) {
-      await addDoc(productsCollection, {
+      const newDocRef = doc(productsCollection); // Auto-generate ID
+      newBatch.set(newDocRef, {
+        id: product.id,
         name: product.name,
         price: product.price,
         images: product.images,
@@ -22,9 +38,11 @@ export const seedFirebaseProducts = async () => {
       });
     }
     
-    alert("Successfully uploaded all products to Firebase!");
+    await newBatch.commit();
+    console.log("Successfully uploaded all products to Firebase!");
+    return true;
   } catch (error) {
     console.error("Error seeding database: ", error);
-    alert("Error uploading to Firebase. Check console.");
+    throw error;
   }
 };
