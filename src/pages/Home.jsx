@@ -42,7 +42,7 @@ const Home = () => {
 
         {/* Hero Image */}
         <div className="relative w-full h-[65vh] rounded-[40px] overflow-hidden -mt-32 z-0 border-[8px] border-transparent">
-          <img src="https://images.unsplash.com/photo-1552346154-21d32810baa3?auto=format&fit=crop&w=2000&q=80" alt="Hero Shoe" className="w-full h-full object-cover" />
+          <img src="/images/hero.png" alt="Hero Shoe" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
           
           <div className="absolute bottom-8 left-8 flex items-center gap-3">
