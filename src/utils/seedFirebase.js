@@ -1,6 +1,6 @@
 import { collection, addDoc } from 'firebase/firestore';
-import { db } from './firebase';
-import { products } from './data/products';
+import { db } from '../firebase';
+import { products } from '../data/products';
 
 export const seedFirebaseProducts = async () => {
   if (!db) {
