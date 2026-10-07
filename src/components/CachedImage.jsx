@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=600&q=80'; // Reliable fallback sneaker image
+const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80'; // Sleek abstract dark placeholder instead of a specific shoe
 
 // Simple memory cache to prevent flickering on already loaded images
 const imageCache = new Set();

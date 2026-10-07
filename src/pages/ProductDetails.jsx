@@ -4,6 +4,7 @@ import { products } from '../data/products';
 import { ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut, Heart, ArrowLeft, CheckCircle } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 import CachedImage from '../components/CachedImage';
 
 const ProductDetails = () => {
@@ -12,6 +13,7 @@ const ProductDetails = () => {
   const [selectedImage, setSelectedImage] = useState(0);
   const { addToCart } = useCart();
   const { currentUser } = useAuth();
+  const { addToast } = useToast();
   const navigate = useNavigate();
   
   // Full screen states
@@ -46,12 +48,13 @@ const ProductDetails = () => {
   
   const handleAddToCart = () => {
     if (!currentUser) {
-      alert("Please login first to add items to your cart.");
+      addToast("Please login first to cop items.", "error");
       navigate('/auth');
       return;
     }
     addToCart(product, size, color);
     setAdded(true);
+    addToast(`${product.name} added to drip bag!`, "success");
     setTimeout(() => {
       navigate('/checkout');
     }, 1000);

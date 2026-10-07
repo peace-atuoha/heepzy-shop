@@ -67,30 +67,60 @@ const Home = () => {
       </section>
       
       <div id="explore" className="bg-white rounded-t-[40px] pt-16">
-        {/* Lifestyle Collage Section */}
-        <section id="about" className="px-4 md:px-12 max-w-7xl mx-auto mb-20 flex flex-col lg:flex-row gap-12 items-center">
-          <div className="lg:w-1/3">
-            <h2 className="text-5xl font-black leading-tight text-black mb-4">
-              Not Just Shoes<br/>A Lifestyle
+        {/* Artistic Lifestyle Section */}
+        <section id="about" className="px-4 md:px-12 max-w-7xl mx-auto my-32 flex flex-col lg:flex-row items-center gap-16">
+          {/* Text Content */}
+          <div className="lg:w-1/2 relative z-10">
+            <div className="inline-block px-5 py-1.5 rounded-full bg-yellow-100 text-yellow-700 font-bold text-xs uppercase tracking-widest mb-6">
+              The Lookbook
+            </div>
+            <h2 className="text-[4rem] md:text-[5.5rem] font-black leading-[0.85] text-black mb-8 uppercase tracking-tighter">
+              Not Just<br/>Shoes. <span className="text-gray-300">A</span><br/>Lifestyle.
             </h2>
-            <p className="text-gray-500 mb-8 max-w-xs text-sm">
-              Every Pair Is Designed To Match Your Grind, Your Goals, And Your Style Comfort.
+            <p className="text-gray-500 mb-10 max-w-md text-lg leading-relaxed font-medium">
+              Elevate your everyday rotation. We curate footwear that blends uncompromised comfort with high-end street aesthetic. 
+              Find your next grail and walk your own path.
             </p>
-            <button className="px-6 py-2.5 bg-brand-yellow text-black rounded-full font-bold text-sm">
-              Live The Style
+            <button className="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white bg-black rounded-full overflow-hidden transition-all hover:scale-105 shadow-xl">
+              <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-brand-yellow rounded-full group-hover:w-64 group-hover:h-56"></span>
+              <span className="relative group-hover:text-black transition-colors uppercase tracking-widest text-sm">Explore The Culture</span>
             </button>
           </div>
-          <div className="lg:w-2/3 grid grid-cols-3 gap-4 h-[400px]">
-            <div className="flex flex-col gap-4 h-full">
-              <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=400&q=80" className="w-full h-1/2 object-cover rounded-3xl" />
-              <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=400&q=80" className="w-full h-1/2 object-cover rounded-3xl" />
+
+          {/* Artistic Image Composition */}
+          <div className="lg:w-1/2 relative h-[500px] md:h-[650px] w-full mt-12 lg:mt-0">
+            {/* Background glowing blob */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-yellow-200/50 rounded-full blur-3xl -z-10"></div>
+            
+            {/* Image 1 - Main Center/Right */}
+            <div className="absolute top-0 right-0 w-3/4 h-[350px] md:h-[450px] rounded-[40px] overflow-hidden shadow-2xl z-20 transition-transform duration-700 hover:scale-[1.02]">
+              <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=1200&q=80" alt="Pastel Sneakers" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+              <div className="absolute bottom-8 left-8 text-white">
+                <p className="font-bold uppercase tracking-widest text-xs mb-1 text-yellow-300">Editor's Pick</p>
+                <p className="text-2xl font-black tracking-tight">Air Force 1 Pastel</p>
+              </div>
             </div>
-            <div className="h-full">
-               <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=400&q=80" className="w-full h-full object-cover rounded-3xl" />
+
+            {/* Image 2 - Bottom Left Overlapping */}
+            <div className="absolute bottom-0 md:bottom-10 left-0 w-[55%] h-[250px] md:h-[350px] rounded-[35px] overflow-hidden shadow-2xl z-30 border-[10px] border-white transition-transform duration-700 hover:-translate-y-4">
+              <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?auto=format&fit=crop&w=800&q=80" alt="Bright Yellow Sneakers" className="w-full h-full object-cover" />
             </div>
-            <div className="flex flex-col gap-4 h-full">
-              <img src="https://images.unsplash.com/photo-1514989940723-e8e51635b782?auto=format&fit=crop&w=400&q=80" className="w-full h-1/2 object-cover rounded-3xl" />
-              <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=400&q=80" className="w-full h-1/2 object-cover rounded-3xl" />
+
+            {/* Image 3 - Floating Top Left */}
+            <div className="absolute -top-5 md:-top-10 left-5 md:left-10 w-1/3 h-[180px] md:h-[220px] rounded-[24px] overflow-hidden shadow-xl z-10 transition-transform duration-700 hover:rotate-6">
+              <img src="https://images.unsplash.com/photo-1514989940723-e8e51635b782?auto=format&fit=crop&w=600&q=80" alt="Action Shot" className="w-full h-full object-cover" />
+            </div>
+            
+            {/* Floating Glass Element */}
+            <div className="absolute bottom-10 -right-5 md:right-10 bg-white/80 backdrop-blur-xl p-4 rounded-2xl shadow-xl z-40 border border-white flex items-center gap-4 hover:scale-105 transition-transform">
+              <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center text-brand-yellow font-black">
+                +4k
+              </div>
+              <div className="pr-2">
+                <p className="font-black text-sm text-black uppercase tracking-tight">New Styles</p>
+                <p className="text-xs text-gray-500 font-bold">Added Weekly</p>
+              </div>
             </div>
           </div>
         </section>

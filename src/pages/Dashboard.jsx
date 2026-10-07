@@ -6,9 +6,11 @@ import CachedImage from '../components/CachedImage';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 import { Package, User, LogOut, Loader2, Database, Clock } from 'lucide-react';
+import { useToast } from '../context/ToastContext';
 
 const Dashboard = () => {
   const { currentUser, logout, isFirebaseConfigured } = useAuth();
+  const { addToast } = useToast();
   const [seeding, setSeeding] = useState(false);
   const [orders, setOrders] = useState([]);
   const [loadingOrders, setLoadingOrders] = useState(true);
@@ -48,7 +50,7 @@ const Dashboard = () => {
     setSeeding(true);
     await seedFirebaseProducts();
     setSeeding(false);
-    alert('Products seeded to Firebase successfully!');
+    addToast('Products synced to Firebase successfully!', 'success');
   };
 
   return (

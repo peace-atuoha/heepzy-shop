@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { products as localProducts } from '../data/products';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 import CachedImage from './CachedImage';
 
 const HoverImage = ({ images }) => {
@@ -46,6 +47,7 @@ const HoverImage = ({ images }) => {
 const ProductGrid = () => {
   const { addToCart } = useCart();
   const { currentUser, isFirebaseConfigured } = useAuth();
+  const { addToast } = useToast();
   const navigate = useNavigate();
   
   const [productData, setProductData] = useState(localProducts);
@@ -89,11 +91,12 @@ const ProductGrid = () => {
   const handleAddToCart = (e, product) => {
     e.preventDefault(); 
     if (!currentUser) {
-      alert("Please login first to add items to your cart.");
+      addToast("Please login first to cop items.", "error");
       return;
     }
     addToCart(product, 'US 9', 'Default');
-    navigate('/checkout'); 
+    addToast(`${product.name} added to drip bag!`, "success");
+    setTimeout(() => navigate('/checkout'), 800); 
   };
 
   return (
