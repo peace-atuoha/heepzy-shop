@@ -3,11 +3,12 @@
 // And set NETLIFY env vars: MAILGUN_API_KEY, MAILGUN_DOMAIN
 
 /*
-const formData = require('form-data');
-const Mailgun = require('mailgun.js');
+import formData from 'form-data';
+import Mailgun from 'mailgun.js';
+
 const mailgun = new Mailgun(formData);
 
-exports.handler = async (event, context) => {
+export const handler = async (event, context) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
@@ -39,6 +40,7 @@ exports.handler = async (event, context) => {
   }
 };
 */
-exports.handler = async () => {
+
+export const handler = async () => {
     return { statusCode: 200, body: JSON.stringify({ success: true, message: "Mock email sent" }) };
 };
