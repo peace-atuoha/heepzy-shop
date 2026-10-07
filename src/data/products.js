@@ -35,20 +35,6 @@ export const products = [
     description: 'The return of a legend. Originally worn by pros.',
   },
   {
-    id: 5,
-    name: 'ASICS Gel-Kayano 14',
-    price: 150,
-    images: generateStockXImages('ASICS-Gel-Kayano-14-Cream-Black'),
-    description: 'Conveying a new perception to the retro running shape.',
-  },
-  {
-    id: 6,
-    name: 'Nike Dunk Low Panda',
-    price: 115,
-    images: generateStockXImages('Nike-Dunk-Low-Retro-White-Black-Panda'),
-    description: 'Created for the hardwood but taken to the streets.',
-  },
-  {
     id: 7,
     name: 'Air Jordan 4 Retro Military Black',
     price: 210,
@@ -62,20 +48,7 @@ export const products = [
     images: generateStockXImages('adidas-Yeezy-Boost-350-V2-Zebra'),
     description: 'One of the most recognizable Yeezy colorways to date.',
   },
-  {
-    id: 9,
-    name: 'New Balance 2002R Rain Cloud',
-    price: 150,
-    images: generateStockXImages('New-Balance-2002R-Protection-Pack-Rain-Cloud'),
-    description: 'Deconstructed upper design brings a fresh look to the 2002R.',
-  },
-  {
-    id: 10,
-    name: 'Nike Air Max 97 Silver Bullet',
-    price: 185,
-    images: generateStockXImages('Nike-Air-Max-97-Silver-Bullet-2022'),
-    description: 'Featuring the original ripple design inspired by Japanese bullet trains.',
-  },
+
   {
     id: 11,
     name: 'Air Jordan 3 Retro White Cement',
@@ -133,20 +106,6 @@ export const products = [
     description: 'Inspired by the human body with layered panels.',
   },
   {
-    id: 19,
-    name: 'Adidas NMD R1 OG',
-    price: 140,
-    images: generateStockXImages('adidas-NMD-R1-Primeknit-OG-2017'),
-    description: 'The shoe that defined the 2010s streetwear boom.',
-  },
-  {
-    id: 20,
-    name: 'Salomon XT-6 Black',
-    price: 190,
-    images: generateStockXImages('Salomon-XT-6-Black-Phantom'),
-    description: 'Trail running meets high fashion.',
-  },
-  {
     id: 21,
     name: 'Air Jordan 11 Retro Cool Grey',
     price: 225,
@@ -175,25 +134,11 @@ export const products = [
     description: 'Stealthy all-black suede construction.',
   },
   {
-    id: 25,
-    name: 'Air Jordan 1 Retro UNC Toe',
-    price: 180,
-    images: generateStockXImages('Air-Jordan-1-Retro-High-OG-UNC-Toe'),
-    description: 'University Blue highlights on a classic silhouette.',
-  },
-  {
     id: 26,
     name: 'Nike Air Force 1 Supreme',
     price: 118,
     images: generateStockXImages('Nike-Air-Force-1-Low-Supreme-Box-Logo-White'),
     description: 'The classic AF1 stamped with the iconic red box logo.',
-  },
-  {
-    id: 27,
-    name: 'Yeezy Slide Onyx',
-    price: 70,
-    images: generateStockXImages('adidas-Yeezy-Slide-Onyx'),
-    description: 'Pure comfort in a futuristic slip-on design.',
   },
   {
     id: 28,
